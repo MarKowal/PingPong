@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+OTHER:
+*.bpr
+*.res
+*.tds
+*.dfm
