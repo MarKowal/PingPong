@@ -36,3 +36,7 @@ OTHER:
 *.res
 *.tds
 *.dfm
+*.~bpr
+*.~dfm
+img/
+snd/
