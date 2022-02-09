@@ -9,8 +9,8 @@
 #pragma resource "*.dfm"
 TForm1 *Form1;
 
-int x = -8;
-int y = -8;
+int x = 5;
+int y = 5;
 
 //---------------------------------------------------------------------------
 __fastcall TForm1::TForm1(TComponent* Owner)
@@ -25,27 +25,30 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
         Ball->Top += y;
 
         //spring from Top
-        if(Ball->Top <= Background->Top) y = -y;
+        if(Ball->Top-5 <= Background->Top) y = -y;
+
         //spring from Down
-        if(Ball->Top >= Background->Height-Ball->Height) y = -y;
+        if(Ball->Top-5 >= Background->Height-Ball->Height) y = -y;
 
         //lose RedPad
-        if(Ball->Left <= RedPad->Left+RedPad->Width-80) {
-              TimerBall->Enabled = false;}
-
-
-
-        //if (Ball->Top > RedPad->Top &&
-       // Ball->Top < (Background->Height - (RedPad->Top + RedPad->Height))))
-        //                        x=-x;
-
-
-
-
-        //lose BlackPad
-        if(Ball->Left > BlackPad->Left+85) {
+        if(Ball->Left+Ball->Width/2 <= RedPad->Left+RedPad->Width/5) {
                 TimerBall->Enabled = false;}
 
+        //spring from RedPad
+        if(Ball->Top+Ball->Height/2 >= RedPad->Top
+                && Ball->Top+Ball->Height/2 <= RedPad->Top+RedPad->Height
+                && Ball->Left+Ball->Width/2 <= RedPad->Left+RedPad->Width/2)
+                x = -x;
+
+        //lose BlackPad
+        if(Ball->Left+Ball->Width/2 >= BlackPad->Left+BlackPad->Width*4/5) {
+                TimerBall->Enabled = false;}
+
+        //spring from BlackPad
+        if(Ball->Top+Ball->Height/2 >= BlackPad->Top
+                && Ball->Top+Ball->Height/2 <= BlackPad->Top+BlackPad->Height
+                && Ball->Left+Ball->Width/2 >= BlackPad->Left+BlackPad->Width/2)
+                x = -x;
 }
 //---------------------------------------------------------------------------
 
@@ -97,5 +100,6 @@ void __fastcall TForm1::BlackDownTimer(TObject *Sender)
                 BlackPad->Top += 10;}
 }
 //---------------------------------------------------------------------------
+
 
 

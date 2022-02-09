@@ -24,19 +24,27 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
         Ball->Left += x;
         Ball->Top += y;
 
-        //odbicie od gornej krawedzi
+        //spring from Top
         if(Ball->Top <= Background->Top) y = -y;
-        //odbicie od dolnej krawedzi
+        //spring from Down
         if(Ball->Top >= Background->Height-Ball->Height) y = -y;
 
-        //przegrana czerwona
-        if(Ball->Left < RedPad->Left+RedPad->Width-130) {
-                TimerBall->Enabled = false;
-        }
-         //przegrana czarna
+        //lose RedPad
+        if(Ball->Left <= RedPad->Left+RedPad->Width-80) {
+              TimerBall->Enabled = false;}
+
+
+
+        //if (Ball->Top > RedPad->Top &&
+       // Ball->Top < (Background->Height - (RedPad->Top + RedPad->Height))))
+        //                        x=-x;
+
+
+
+
+        //lose BlackPad
         if(Ball->Left > BlackPad->Left+85) {
-                TimerBall->Enabled = false;
-        }
+                TimerBall->Enabled = false;}
 
 }
 //---------------------------------------------------------------------------
@@ -44,20 +52,50 @@ void __fastcall TForm1::TimerBallTimer(TObject *Sender)
 
 void __fastcall TForm1::RedUpTimer(TObject *Sender)
 {
-        RedPad->Top -= 10;
+        if(RedPad->Top >= 5) RedPad->Top -= 10;
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::RedDownTimer(TObject *Sender)
 {
-        RedPad->Top += 10;
+        if(RedPad->Top+RedPad->Height <= Background->Height-5) {
+                RedPad->Top += 10;}
 }
 //---------------------------------------------------------------------------
 
 void __fastcall TForm1::FormKeyDown(TObject *Sender, WORD &Key,
       TShiftState Shift)
 {
-        //JAK ZROBI KLAIWSZ WIRTUALNY DLA A ORAZ Z???
+        if(Key == 0x41) RedUp->Enabled = true;
+        if(Key == 0x5A) RedDown->Enabled = true;
+
+        if(Key == VK_UP) BlackUp->Enabled = true;
+        if(Key == VK_DOWN) BlackDown->Enabled = true;
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormKeyUp(TObject *Sender, WORD &Key,
+      TShiftState Shift)
+{
+        if(Key == 0x41) RedUp->Enabled = false;
+        if(Key == 0x5A) RedDown->Enabled = false;
+
+        if(Key == VK_UP) BlackUp->Enabled = false;
+        if(Key == VK_DOWN) BlackDown->Enabled = false;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::BlackUpTimer(TObject *Sender)
+{
+        if(BlackPad->Top >= 5) BlackPad->Top -= 10;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::BlackDownTimer(TObject *Sender)
+{
+        if(BlackPad->Top+BlackPad->Height <= Background->Height-5) {
+                BlackPad->Top += 10;}
+}
+//---------------------------------------------------------------------------
+
 

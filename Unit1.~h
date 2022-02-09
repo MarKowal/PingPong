@@ -20,11 +20,17 @@ __published:	// IDE-managed Components
         TImage *BlackPad;
         TTimer *RedUp;
         TTimer *RedDown;
+        TTimer *BlackUp;
+        TTimer *BlackDown;
         void __fastcall TimerBallTimer(TObject *Sender);
         void __fastcall RedUpTimer(TObject *Sender);
         void __fastcall RedDownTimer(TObject *Sender);
         void __fastcall FormKeyDown(TObject *Sender, WORD &Key,
           TShiftState Shift);
+        void __fastcall FormKeyUp(TObject *Sender, WORD &Key,
+          TShiftState Shift);
+        void __fastcall BlackUpTimer(TObject *Sender);
+        void __fastcall BlackDownTimer(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
