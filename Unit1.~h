@@ -26,6 +26,8 @@ __published:	// IDE-managed Components
         TLabel *Title;
         TLabel *Score;
         TLabel *SpringingNumber;
+        TLabel *RedScorePoint;
+        TLabel *BlackScorePoint;
         void __fastcall TimerBallTimer(TObject *Sender);
         void __fastcall RedUpTimer(TObject *Sender);
         void __fastcall RedDownTimer(TObject *Sender);

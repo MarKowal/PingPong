@@ -26,6 +26,9 @@ __published:	// IDE-managed Components
         TLabel *Title;
         TLabel *Score;
         TLabel *SpringingNumber;
+        TLabel *RedScorePoint;
+        TLabel *BlackScorePoint;
+        TButton *NextRound;
         void __fastcall TimerBallTimer(TObject *Sender);
         void __fastcall RedUpTimer(TObject *Sender);
         void __fastcall RedDownTimer(TObject *Sender);
@@ -36,6 +39,7 @@ __published:	// IDE-managed Components
         void __fastcall BlackUpTimer(TObject *Sender);
         void __fastcall BlackDownTimer(TObject *Sender);
         void __fastcall NewGameClick(TObject *Sender);
+        void __fastcall NextRoundClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TPingPong(TComponent* Owner);

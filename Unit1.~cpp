@@ -27,6 +27,8 @@ __fastcall TPingPong::TPingPong(TComponent* Owner)
         BlackPad->Left =  Background->Width-RedPad->Width-15;
         Score->Visible = false;
         SpringingNumber->Visible = false;
+        RedScorePoint->Visible = false;
+        BlackScorePoint->Visible = false;
 }
 //---------------------------------------------------------------------------
 
@@ -50,6 +52,7 @@ void __fastcall TPingPong::TimerBallTimer(TObject *Sender)
                 Score->Visible = true;
                 SpringingNumber->Caption = "Springings "+IntToStr(springingNumbers);
                 SpringingNumber->Visible = true;
+                BlackScorePoint->Visible = true;
                 }     //ZAMIENIC NA JEDEN KOD
 
         //springing from RedPad
@@ -57,7 +60,7 @@ void __fastcall TPingPong::TimerBallTimer(TObject *Sender)
                 && Ball->Top+Ball->Height/2 <= RedPad->Top+RedPad->Height
                 && Ball->Left+Ball->Width/2 <= RedPad->Left+RedPad->Width/2) {
                 x = -x;
-                springingNumbers += 1;}
+                springingNumbers = springingNumbers+1;}
 
         //lose BlackPad
         if(Ball->Left+Ball->Width/2 >= BlackPad->Left+BlackPad->Width*4/5) {
@@ -68,14 +71,14 @@ void __fastcall TPingPong::TimerBallTimer(TObject *Sender)
                 Score->Visible = true;
                 SpringingNumber->Caption = "Springings "+IntToStr(springingNumbers);
                 SpringingNumber->Visible = true;
-                }
+                RedScorePoint->Visible = true;}
 
         //springing from BlackPad
         if(Ball->Top+Ball->Height/2 >= BlackPad->Top
                 && Ball->Top+Ball->Height/2 <= BlackPad->Top+BlackPad->Height
-                && Ball->Left+Ball->Width/2 >= BlackPad->Left+BlackPad->Width/2)
-                {x = -x;
-                springingNumbers += 1;}
+                && Ball->Left+Ball->Width/2 >= BlackPad->Left+BlackPad->Width/2) {
+                x = -x;
+                springingNumbers = springingNumbers+1;}
 }
 //---------------------------------------------------------------------------
 
@@ -134,6 +137,8 @@ void __fastcall TPingPong::NewGameClick(TObject *Sender)
         Title->Visible = false;
         Score->Visible = false;
         SpringingNumber->Visible = false;
+        RedScorePoint->Visible = false;
+        BlackScorePoint->Visible = false;
         TimerBall->Enabled = true;
         Ball->Top = Background->Height/3;
         Ball->Left = Background->Width/2;
@@ -141,8 +146,12 @@ void __fastcall TPingPong::NewGameClick(TObject *Sender)
         RedPad->Left = Background->Width-Background->Width+15;
         BlackPad->Top = Background->Height/3;
         BlackPad->Left =  Background->Width-RedPad->Width-15;
+        RedPoint = 0;
+        BlackPoint = 0;
+        springingNumbers = 0;
 }
 //---------------------------------------------------------------------------
+
 
 
 
