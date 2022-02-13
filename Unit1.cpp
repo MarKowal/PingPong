@@ -4,6 +4,8 @@
 #pragma hdrstop
 
 #include "Unit1.h"
+#include "Unit2.h"
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -19,6 +21,7 @@ int springingNumbers = 0;
 __fastcall TPingPong::TPingPong(TComponent* Owner)
         : TForm(Owner)
 {
+        PingPong->Visible = false;
         Ball->Top = Background->Height/3;
         Ball->Left = Background->Width/2;
         RedPad->Top = Background->Height/3;
@@ -30,6 +33,8 @@ __fastcall TPingPong::TPingPong(TComponent* Owner)
         RedScorePoint->Visible = false;
         BlackScorePoint->Visible = false;
         NextRound->Visible = false;
+        QuitGame->Visible = true;
+        MediaPlayer1->Open();
 }
 //---------------------------------------------------------------------------
 
@@ -46,6 +51,7 @@ void __fastcall TPingPong::TimerBallTimer(TObject *Sender)
 
         //lose RedPad
         if(Ball->Left+Ball->Width/2 <= RedPad->Left+RedPad->Width/5) {
+                MediaPlayer1->Play();
                 BlackPoint += 1;
                 TimerBall->Enabled = false;
                 NewGame->Visible = true;
@@ -55,6 +61,7 @@ void __fastcall TPingPong::TimerBallTimer(TObject *Sender)
                 SpringingNumber->Visible = true;
                 BlackScorePoint->Visible = true;
                 NextRound->Visible = true;
+                QuitGame->Visible = true;
                 }     //ZAMIENIC NA JEDEN KOD !!!!!!!!!!
 
         //springing from RedPad
@@ -66,6 +73,7 @@ void __fastcall TPingPong::TimerBallTimer(TObject *Sender)
 
         //lose BlackPad
         if(Ball->Left+Ball->Width/2 >= BlackPad->Left+BlackPad->Width*4/5) {
+                MediaPlayer1->Play();
                 RedPoint += 1;
                 TimerBall->Enabled = false;
                 NewGame->Visible = true;
@@ -74,7 +82,9 @@ void __fastcall TPingPong::TimerBallTimer(TObject *Sender)
                 SpringingNumber->Caption = "Springings "+IntToStr(springingNumbers);
                 SpringingNumber->Visible = true;
                 RedScorePoint->Visible = true;
-                NextRound->Visible = true;}
+                NextRound->Visible = true;
+                QuitGame->Visible = true;
+                }
 
         //springing from BlackPad
         if(Ball->Top+Ball->Height/2 >= BlackPad->Top
@@ -153,6 +163,7 @@ void __fastcall TPingPong::NewGameClick(TObject *Sender)
         RedPoint = 0;
         BlackPoint = 0;
         springingNumbers = 0;
+        QuitGame->Visible = false;
 }
 //---------------------------------------------------------------------------
 
@@ -173,6 +184,16 @@ void __fastcall TPingPong::NextRoundClick(TObject *Sender)
         BlackPad->Top = Background->Height/3;
         BlackPad->Left =  Background->Width-RedPad->Width-15;
         springingNumbers = 0;
+        QuitGame->Visible = false;
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TPingPong::QuitGameClick(TObject *Sender)
+{
+        InitialWindow->Close();
+        PingPong->Close();
+}
+//---------------------------------------------------------------------------
+
+
 

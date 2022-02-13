@@ -9,6 +9,7 @@
 #include <Forms.hpp>
 #include <ExtCtrls.hpp>
 #include <Graphics.hpp>
+#include <MPlayer.hpp>
 //---------------------------------------------------------------------------
 class TPingPong : public TForm
 {
@@ -29,6 +30,8 @@ __published:	// IDE-managed Components
         TLabel *RedScorePoint;
         TLabel *BlackScorePoint;
         TButton *NextRound;
+        TButton *QuitGame;
+        TMediaPlayer *MediaPlayer1;
         void __fastcall TimerBallTimer(TObject *Sender);
         void __fastcall RedUpTimer(TObject *Sender);
         void __fastcall RedDownTimer(TObject *Sender);
@@ -40,6 +43,7 @@ __published:	// IDE-managed Components
         void __fastcall BlackDownTimer(TObject *Sender);
         void __fastcall NewGameClick(TObject *Sender);
         void __fastcall NextRoundClick(TObject *Sender);
+        void __fastcall QuitGameClick(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
         __fastcall TPingPong(TComponent* Owner);
